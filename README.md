@@ -1,37 +1,35 @@
-# Password Generator Using Thread Race Condition
+# Password Generator with Thread Race Condition
 
-This project is a console-based password generator implemented in C#. It uses multiple threads and a race condition to generate passwords. The program uses a user-defined "scramble" value and password length to produce a sequence of characters based on thread execution order and counting.
+This is a simple console program written in C# that generates passwords using a race condition between two threads. The threads increment and decrement a shared counter many times, and the final counter value determines each character in the password.
 
-## Features
+## How to Use
 
-- Generates passwords of user-defined length (between 8 and 20 characters).
-- Allows setting a scramble value (1 to 100) which controls the number of iterations in counting threads.
-- Uses two threads incrementing and decrementing a shared counter in parallel to produce a complex, hard-to-predict character.
-- Displays generated password and raw ASCII values.
-- Allows repeated generation with the same settings.
+1. Run the program.
+2. Enter a scramble value between 1 and 100. (Higher values are capped at 100.)
+3. Enter the desired password length (between 8 and 20).
+4. The program will generate a password based on these inputs.
+5. You can generate more passwords with the same settings if you want.
 
 ## How It Works
 
-The program creates two threads for each character: one increments a counter, the other decrements it. Both run a large number of iterations defined by the scramble value multiplied by 1,000,000. The final counter value is then mapped to an ASCII character in a printable range. This approach leverages race conditions and thread timing to generate complex passwords.
+- For each character, two threads run in parallel: one counts up, the other counts down.
+- The number of iterations is `scramble value * 1,000,000`.
+- Because the threads run concurrently, their timing affects the final counter value.
+- The final count is converted into a printable ASCII character.
+- This method makes passwords unpredictable but not reproducible with the same input.
 
-## Usage
+## Important Notes
 
-1. Run the program.
-2. Enter a scramble value between 1 and 100 (values above 100 are capped to 100).
-3. Enter the desired password length between 8 and 20.
-4. The program will generate and display a password based on these inputs.
-5. Optionally generate additional passwords with the same settings.
-
-## Notes
-
-- Because this approach depends on thread timing and race conditions, the same scramble value and password length will produce different passwords on different runs.
-- This method is experimental and primarily for learning or demonstration purposes.
-- It is not recommended for cryptographic or production use due to unpredictability and lack of cryptographic security.
+- The password changes every time, even with the same scramble and length.
+- This project is more of an experiment in using threads and race conditions than a secure password generator.
+- It’s not recommended to use this in real security-sensitive applications.
 
 ## Requirements
 
-- .NET Framework or .NET Core compatible with C# console applications.
-- Basic console environment to run the program.
+- .NET Framework or .NET Core
+- Console to run the program
 
-## Example
+---
+
+Feel free to explore and modify the code!
 
